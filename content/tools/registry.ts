@@ -5,6 +5,10 @@ import { batch3Tools } from "./registry-batch3";
 import { phase1Tools } from "./registry-phase1";
 import { phase2Tools } from "./registry-phase2";
 import { phase3Tools } from "./registry-phase3";
+import { phase4Tools } from "./registry-phase4";
+import { phase5Tools } from "./registry-phase5";
+import { phase6Tools } from "./registry-phase6";
+import { phase7Tools } from "./registry-phase7";
 
 export const categories: Record<
   CategoryId,
@@ -1219,6 +1223,10 @@ const toolList: ToolDefinition[] = [
   ...phase1Tools,
   ...phase2Tools,
   ...phase3Tools,
+  ...phase4Tools,
+  ...phase5Tools,
+  ...phase6Tools,
+  ...phase7Tools,
 ];
 
 export const tools: ResolvedTool[] = toolList.map(resolveTool);

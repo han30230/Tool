@@ -13,7 +13,7 @@ type ToolSearchProps = {
 
 export function ToolSearch({ className = "", compact = false }: ToolSearchProps) {
   const [q, setQ] = useState("");
-  const hits = useMemo(() => filterToolsByQuery(tools, q).slice(0, 8), [q]);
+  const hits = useMemo(() => filterToolsByQuery(tools, q).slice(0, 12), [q]);
   const open = q.trim().length > 0;
 
   return (

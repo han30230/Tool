@@ -44,6 +44,20 @@ export type ToolDefinition = {
   featured?: boolean;
   /** 신규 툴 배지(선택) */
   isNew?: boolean;
+  /** 내부 분류·필터·추천용 태그(선택). resolve 시 tool-meta와 병합됩니다. */
+  tags?: string[];
+  /** 검색 동의어·별칭(선택) */
+  searchAliases?: string[];
+  /** 세부 주제(선택). 예: 급여 클러스터 내 하위 주제 */
+  subcategory?: string;
+  /** 인기 섹션·추천 가중치(높을수록 상단). 기본은 메타 레이어 */
+  popularityWeight?: number;
+  /** 목록 수동 정렬(낮을수록 앞). 미설정 시 가중치·제목순 보조 */
+  sortOrder?: number;
+  /** stable / beta 등 */
+  status?: "stable" | "beta";
+  /** 짧은 활용 예시 문장(선택) */
+  useCases?: string[];
 };
 
 /** UI·SEO용으로 기본값이 채워진 툴 */
@@ -53,4 +67,10 @@ export type ResolvedTool = ToolDefinition & {
   toolSections: ToolSection[];
   featured: boolean;
   isNew: boolean;
+  tags: string[];
+  searchAliases: string[];
+  popularityWeight: number;
+  sortOrder: number;
+  status: "stable" | "beta";
+  useCases: string[];
 };

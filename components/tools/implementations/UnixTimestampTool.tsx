@@ -40,6 +40,30 @@ export function UnixTimestampTool({ tool }: UnixTimestampToolProps) {
     return "";
   }, [parsed]);
 
+  const extraRows = useMemo(() => {
+    if (parsed?.kind !== "ok") return undefined;
+    const d = parsed.d;
+    return [
+      { label: "ISO 8601 (UTC)", value: d.toISOString() },
+      { label: "Unix ms", value: String(d.getTime()) },
+      {
+        label: "UTC 표시",
+        value: d.toLocaleString("ko-KR", { timeZone: "UTC", dateStyle: "medium", timeStyle: "medium" }),
+      },
+    ];
+  }, [parsed]);
+
+  const copyBundle = useMemo(() => {
+    if (parsed?.kind !== "ok") return `${parsed?.kind === "err" ? parsed.msg : ""}`;
+    const d = parsed.d;
+    return [
+      `로컬: ${fmt(d)}`,
+      `ISO: ${d.toISOString()}`,
+      `Unix(s): ${parsed.unixSec}`,
+      `Unix(ms): ${d.getTime()}`,
+    ].join("\n");
+  }, [parsed]);
+
   return (
     <ToolPageLayout
       tool={tool}
@@ -60,9 +84,12 @@ export function UnixTimestampTool({ tool }: UnixTimestampToolProps) {
           <ResultCard
             primaryLabel="로컬 표시"
             primaryValue={display}
-            copyText={`${parsed.unixSec}`}
-            description="타임존은 브라우저 로컬입니다."
-            extraRows={[{ label: "Unix 초", value: String(parsed.unixSec) }]}
+            copyText={copyBundle}
+            description="타임존은 브라우저 로컬입니다. ISO·UTC는 참고용입니다."
+            extraRows={[
+              { label: "Unix 초", value: String(parsed.unixSec) },
+              ...(extraRows ?? []),
+            ]}
           />
         ) : parsed?.kind === "err" ? (
           <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 text-sm text-amber-800 dark:text-amber-200">

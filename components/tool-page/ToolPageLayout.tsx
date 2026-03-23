@@ -108,8 +108,8 @@ export function ToolPageLayout({
   showBetweenAd = false,
   showMidGuideAd = true,
   showInlineAd = true,
-  showFooterAd = true,
-  showBelowRelatedAd = true,
+  showFooterAd = false,
+  showBelowRelatedAd = false,
   usageSlot = defaultUsage,
   className = "",
 }: ToolPageLayoutProps) {

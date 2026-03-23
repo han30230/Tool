@@ -28,6 +28,16 @@ export function HeaderNav() {
           </Link>
         );
       })}
+      <Link
+        href="/browse"
+        className={`${navLink} ${
+          pathname === "/browse"
+            ? "bg-[var(--accent-subtle)] text-[var(--accent)] shadow-[var(--shadow-sm)]"
+            : "text-[var(--muted)] hover:bg-[var(--card-inner)] hover:text-[var(--foreground)]"
+        }`}
+      >
+        전체
+      </Link>
       <span className="mx-1 hidden h-5 w-px bg-[var(--border-strong)] lg:inline" aria-hidden />
       <Link
         href="/about"

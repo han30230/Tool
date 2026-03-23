@@ -27,6 +27,11 @@ function parseLines(text: string): string[] {
     .filter(Boolean);
 }
 
+function countLines(text: string): number {
+  if (!text.trim()) return 0;
+  return text.split(/\r?\n/).length;
+}
+
 type RandomPickerToolProps = { tool: ResolvedTool };
 
 export function RandomPickerTool({ tool }: RandomPickerToolProps) {
@@ -59,7 +64,9 @@ export function RandomPickerTool({ tool }: RandomPickerToolProps) {
       return;
     }
     const k = Math.min(n, ls.length);
-    const shuffled = shuffle(ls);
+    const unique = [...new Set(ls)];
+    const pool = unique.length >= k ? unique : ls;
+    const shuffled = shuffle([...pool]);
     setMulti(shuffled.slice(0, k));
   }, [raw, n]);
 
@@ -70,6 +77,8 @@ export function RandomPickerTool({ tool }: RandomPickerToolProps) {
   }, [raw]);
 
   const multiText = multi.join("\n");
+  const candidates = useMemo(() => parseLines(raw), [raw]);
+  const lineCount = useMemo(() => countLines(raw), [raw]);
 
   return (
     <ToolPageLayout
@@ -82,6 +91,9 @@ export function RandomPickerTool({ tool }: RandomPickerToolProps) {
             onChange={(e) => setRaw(e.target.value)}
             className="min-h-[140px] font-mono text-sm"
           />
+          <p className="text-xs text-[var(--muted)]">
+            후보 {candidates.length}명 · 입력 줄 {lineCount}줄
+          </p>
           <button
             type="button"
             onClick={pickOne}
@@ -121,6 +133,24 @@ export function RandomPickerTool({ tool }: RandomPickerToolProps) {
             }}
             onExample={() => setRaw("A팀\nB팀\nC팀")}
           />
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setRaw("1번\n2번\n3번\n4번\n5번")}
+              className="rounded-lg border border-[var(--border)] bg-[var(--card-inner)] px-3 py-2 text-xs font-medium text-[var(--foreground)]"
+            >
+              예: 번호 5개
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setRaw("김민수\n이서연\n박도윤\n최하린\n정우진\n한지아\n오승우\n강나래")
+              }
+              className="rounded-lg border border-[var(--border)] bg-[var(--card-inner)] px-3 py-2 text-xs font-medium text-[var(--foreground)]"
+            >
+              예: 이름 8명
+            </button>
+          </div>
         </div>
       }
       resultSlot={
@@ -140,7 +170,11 @@ export function RandomPickerTool({ tool }: RandomPickerToolProps) {
             extraRows={multi.slice(1).map((line, i) => ({ label: `#${i + 2}`, value: line }))}
           />
         ) : (
-          <div className="rounded-2xl border border-dashed border-[var(--border)] p-6 text-sm text-[var(--muted)]">
+          <div
+            className="rounded-2xl border border-dashed border-[var(--border)] p-6 text-sm text-[var(--muted)]"
+            role="status"
+            aria-live="polite"
+          >
             줄을 입력한 뒤 뽑기를 누르세요.
           </div>
         )

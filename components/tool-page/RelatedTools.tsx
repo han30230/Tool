@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ResolvedTool } from "@/content/tools/types";
-import { categories, getToolBySlug, getToolsByCategory } from "@/content/tools/registry";
+import { categories, getToolBySlug, tools } from "@/content/tools/registry";
+import { getRecommendedTools } from "@/lib/tools/recommendations";
 
 type RelatedToolsProps = {
   tool: ResolvedTool;
@@ -12,10 +13,7 @@ const linkPill =
 
 export function RelatedTools({ tool, className = "" }: RelatedToolsProps) {
   const relatedSet = new Set<string>([tool.slug, ...tool.relatedSlugs]);
-  const categoryPeers = getToolsByCategory(tool.categoryId)
-    .filter((t) => !relatedSet.has(t.slug))
-    .sort((a, b) => Number(b.isNew) - Number(a.isNew) || Number(b.featured) - Number(a.featured))
-    .slice(0, 4);
+  const smartPicks = getRecommendedTools(tool, tools, 10).filter((t) => !relatedSet.has(t.slug)).slice(0, 6);
 
   return (
     <nav className={className} aria-label="관련 도구">
@@ -67,16 +65,20 @@ export function RelatedTools({ tool, className = "" }: RelatedToolsProps) {
               );
             })}
           </ul>
-          {categoryPeers.length > 0 ? (
+          {smartPicks.length > 0 ? (
             <>
               <h3 className="mt-10 text-base font-bold text-[var(--foreground)]">
-                같은 카테고리에서 더 보기
+                태그·사용 맥락이 비슷한 도구
               </h3>
               <p className="mt-1 text-sm text-[var(--muted)]">
-                {categories[tool.categoryId].title} 모음의 다른 도구입니다. 위 목록과 겹치지 않게 골랐습니다.
+                같은 카테고리·겹치는 태그·자주 이어서 쓰는 조합을 참고해 골랐습니다.{" "}
+                <Link href="/browse" className="font-medium text-[var(--accent)] underline underline-offset-2">
+                  전체 목록
+                </Link>
+                에서 더 찾을 수 있어요.
               </p>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-                {categoryPeers.map((t) => (
+                {smartPicks.map((t) => (
                   <li key={t.slug}>
                     <Link
                       href={`/tools/${t.slug}`}

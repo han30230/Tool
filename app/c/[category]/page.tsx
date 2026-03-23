@@ -63,7 +63,13 @@ export default async function CategoryPage({ params }: Props) {
               >
                 홈
               </Link>
-              에서 다른 카테고리와 추천 도구도 볼 수 있습니다.
+              에서 다른 카테고리와 추천 도구도 볼 수 있습니다.{" "}
+              <Link
+                href={`/browse?cat=${category}`}
+                className="font-medium text-[var(--accent)] underline underline-offset-2 transition hover:text-[var(--accent-hover)]"
+              >
+                이 카테고리만 검색·정렬로 보기
+              </Link>
             </p>
           </div>
         </header>

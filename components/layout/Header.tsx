@@ -69,6 +69,12 @@ export function Header() {
               </Link>
             ))}
             <Link
+              href="/browse"
+              className="flex min-h-[44px] items-center rounded-xl px-3 text-sm font-medium text-[var(--foreground)] transition hover:bg-[var(--accent-subtle)]"
+            >
+              전체 목록
+            </Link>
+            <Link
               href="/about"
               className="flex min-h-[44px] items-center rounded-xl px-3 text-sm text-[var(--muted)] transition hover:bg-[var(--card-inner)]"
             >

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { categories, tools } from "@/content/tools/registry";
+import { hubCategories } from "@/content/tools/hub-categories";
+import { sortTools } from "@/lib/tools/sort";
 import { buildCategoryMetadata } from "@/lib/seo/metadata";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { PageContainer, Section, LinkCard, Card } from "@/components/ui";
@@ -10,23 +12,6 @@ export const metadata = buildCategoryMetadata(
   "/",
 );
 
-const popular = [
-  "vat",
-  "percent",
-  "take-home-pay",
-  "loan",
-  "markdown-preview",
-  "exchange-rate",
-  "qr-code-generator",
-  "hash-generator",
-  "unix-timestamp",
-  "slugify",
-  "todo-checklist",
-  "date",
-  "char-count",
-  "base64",
-];
-
 const categoryAccent: Record<string, string> = {
   calculator: "🧮",
   convert: "📐",
@@ -36,8 +21,12 @@ const categoryAccent: Record<string, string> = {
   dev: "💻",
 };
 
+const hubShowcase = hubCategories
+  .filter((h) => !["space-astro", "ai", "education", "misc"].includes(h.id))
+  .slice(0, 8);
+
 export default function HomePage() {
-  const featured = tools.filter((t) => popular.includes(t.slug));
+  const featured = sortTools(tools, "popular").slice(0, 14);
   const newTools = tools.filter((t) => t.isNew).slice(0, 12);
   const toolCount = tools.length;
   const categoryCount = Object.keys(categories).length;
@@ -96,6 +85,12 @@ export default function HomePage() {
             >
               카테고리 둘러보기
             </Link>
+            <Link
+              href="/browse"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--card)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] shadow-[var(--shadow-sm)] transition hover:border-[var(--accent)]/30 hover:bg-[var(--card-inner)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
+            >
+              전체 목록·검색
+            </Link>
           </div>
           <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-[var(--border)] pt-8 sm:max-w-lg sm:gap-4">
             <div className="text-center sm:text-left">
@@ -129,10 +124,73 @@ export default function HomePage() {
       </div>
 
       <Section
+        id="hubs"
+        title="주제 허브로 더 좁히기"
+        description="기존 6개 카테고리와 별도로, 실무·생활 주제별로 묶어 두었습니다. 전체 목록 페이지에서 검색·필터와 함께 쓰면 편합니다."
+        className="mt-14"
+      >
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {hubShowcase.map((h) => (
+            <li key={h.id}>
+              <LinkCard
+                href={`/browse?hub=${h.id}`}
+                title={h.title}
+                description={h.description}
+                titleClassName="text-base"
+                footer={
+                  <span className="text-sm font-medium text-[var(--accent)]">열기 →</span>
+                }
+              />
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-sm text-[var(--muted)]">
+          <Link href="/browse" className="font-medium text-[var(--accent)] underline underline-offset-2">
+            전체 도구 목록
+          </Link>
+          에서 주제·정렬·검색을 함께 사용할 수 있습니다.
+        </p>
+      </Section>
+
+      <Section
+        id="quick-clusters"
+        title="빠르게 이어서 쓰기 좋은 묶음"
+        description="자주 겹쳐 찾는 흐름만 모았습니다. 한 페이지에서 끝내고, 관련 도구로 자연스럽게 이동할 수 있습니다."
+        className="mt-16"
+      >
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <li>
+            <LinkCard
+              href="/browse?hub=unit-conversion"
+              title="단위·길이·온도 변환"
+              description="인치·kg·℃·데이터 용량 등 숫자 변환을 한곳에서."
+              titleClassName="text-base"
+            />
+          </li>
+          <li>
+            <LinkCard
+              href="/browse?hub=data-dev"
+              title="JSON·텍스트·개발"
+              description="JSON, CSV, Base64, UUID, 해시, 정규식 등."
+              titleClassName="text-base"
+            />
+          </li>
+          <li>
+            <LinkCard
+              href="/browse?hub=salary-pay"
+              title="급여·근로"
+              description="연봉·실수령·퇴직금·연차 등 급여 클러스터."
+              titleClassName="text-base"
+            />
+          </li>
+        </ul>
+      </Section>
+
+      <Section
         id="categories"
         title="카테고리별로 보기"
         description="원하는 유형만 골라 들어가면 비슷한 도구를 한꺼번에 볼 수 있습니다."
-        className="mt-14"
+        className="mt-16"
       >
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {Object.entries(categories).map(([id, c]) => (
@@ -159,7 +217,7 @@ export default function HomePage() {
       <Section
         id="popular"
         title="바로 써 보기 좋은 도구"
-        description="자주 찾는 기능부터 모아 두었습니다. 각 페이지에 사용법·기준·FAQ가 있습니다."
+        description="등록된 인기 가중치를 반영해 순서를 잡았습니다. 각 페이지에 사용법·기준·FAQ가 있습니다."
         className="mt-16"
       >
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

@@ -57,6 +57,27 @@ import { TimerStopwatchTool } from "@/components/tools/implementations/TimerStop
 import { ImageCompressorTool } from "@/components/tools/implementations/ImageCompressorTool";
 import { PdfMergeSplitTool } from "@/components/tools/implementations/PdfMergeSplitTool";
 import { FaviconGeneratorTool } from "@/components/tools/implementations/FaviconGeneratorTool";
+import { XmlFormatTool } from "@/components/tools/implementations/XmlFormatTool";
+import { YamlJsonTool } from "@/components/tools/implementations/YamlJsonTool";
+import { JwtDecoderTool } from "@/components/tools/implementations/JwtDecoderTool";
+import { ImageResizerTool } from "@/components/tools/implementations/ImageResizerTool";
+import { ImageFormatConverterTool } from "@/components/tools/implementations/ImageFormatConverterTool";
+import { ImageToPdfTool } from "@/components/tools/implementations/ImageToPdfTool";
+import { PdfToImageTool } from "@/components/tools/implementations/PdfToImageTool";
+import { SalesFeeCalculatorTool } from "@/components/tools/implementations/SalesFeeCalculatorTool";
+import { UnitCostWithShippingTool } from "@/components/tools/implementations/UnitCostWithShippingTool";
+import { BreakEvenTool } from "@/components/tools/implementations/BreakEvenTool";
+import { JeonseWolseTool } from "@/components/tools/implementations/JeonseWolseTool";
+import { MeetingTimeTool } from "@/components/tools/implementations/MeetingTimeTool";
+import { TitleLengthTool } from "@/components/tools/implementations/TitleLengthTool";
+import { MetaDescriptionLengthTool } from "@/components/tools/implementations/MetaDescriptionLengthTool";
+import { HashtagCleanerTool } from "@/components/tools/implementations/HashtagCleanerTool";
+import { RoiCalculatorTool } from "@/components/tools/implementations/RoiCalculatorTool";
+import { AiTokenCalculatorTool } from "@/components/tools/implementations/AiTokenCalculatorTool";
+import { PromptLengthTool } from "@/components/tools/implementations/PromptLengthTool";
+import { ModelCostEstimatorTool } from "@/components/tools/implementations/ModelCostEstimatorTool";
+import { TextChunkSplitterTool } from "@/components/tools/implementations/TextChunkSplitterTool";
+import { JsonSchemaTemplateTool } from "@/components/tools/implementations/JsonSchemaTemplateTool";
 import {
   ToolPlaceholderInput,
   ToolPlaceholderResult,
@@ -120,6 +141,27 @@ const implemented = {
   "image-compressor": ImageCompressorTool,
   "pdf-merge-split": PdfMergeSplitTool,
   "favicon-generator": FaviconGeneratorTool,
+  "xml-formatter": XmlFormatTool,
+  "yaml-json": YamlJsonTool,
+  "jwt-decoder": JwtDecoderTool,
+  "image-resizer": ImageResizerTool,
+  "image-format-converter": ImageFormatConverterTool,
+  "image-to-pdf": ImageToPdfTool,
+  "pdf-to-image": PdfToImageTool,
+  "sales-fee-calculator": SalesFeeCalculatorTool,
+  "unit-cost-with-shipping": UnitCostWithShippingTool,
+  "roi-calculator": RoiCalculatorTool,
+  "break-even": BreakEvenTool,
+  "jeonse-wolse": JeonseWolseTool,
+  "meeting-time": MeetingTimeTool,
+  "title-length": TitleLengthTool,
+  "meta-description-length": MetaDescriptionLengthTool,
+  "hashtag-cleaner": HashtagCleanerTool,
+  "ai-token-calculator": AiTokenCalculatorTool,
+  "prompt-length": PromptLengthTool,
+  "model-cost-estimator": ModelCostEstimatorTool,
+  "text-chunk-splitter": TextChunkSplitterTool,
+  "json-schema-template": JsonSchemaTemplateTool,
 } as const;
 
 type ImplementedSlug = keyof typeof implemented;
