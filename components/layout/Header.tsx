@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { categories } from "@/content/tools/registry";
 import { PageContainer } from "@/components/ui/PageContainer";
+import { HeaderNav } from "@/components/layout/HeaderNav";
 
 function LogoMark() {
   return (
@@ -36,29 +37,19 @@ function LogoMark() {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--header-bg)] shadow-[var(--shadow-sm)] backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[var(--header-bg)]">
-      <PageContainer variant="header" className="flex items-center justify-between gap-3">
+    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--header-bg)] shadow-[var(--shadow-sm)] backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-[var(--header-bg)]">
+      <PageContainer variant="header" wide className="flex items-center justify-between gap-3">
         <Link
           href="/"
-          className="group flex items-center gap-2.5 rounded-xl py-1 pr-2 outline-none transition hover:opacity-95 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)]"
+          className="group flex items-center gap-2.5 rounded-xl py-1 pr-2 outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)]"
         >
           <LogoMark />
-          <span className="text-[1.05rem] font-bold tracking-tight text-[var(--foreground)]">
+          <span className="text-[1.05rem] font-bold tracking-tight text-[var(--foreground)] transition group-hover:text-[var(--accent)]">
             툴모음
           </span>
         </Link>
-        <nav className="hidden items-center gap-1 sm:flex" aria-label="카테고리">
-          {Object.entries(categories).map(([id, c]) => (
-            <Link
-              key={id}
-              href={c.path}
-              className="rounded-full px-3.5 py-2 text-sm font-medium text-[var(--muted)] transition hover:bg-[var(--accent-subtle)] hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)]"
-            >
-              {c.title}
-            </Link>
-          ))}
-        </nav>
-        <details className="relative sm:hidden">
+        <HeaderNav />
+        <details className="relative md:hidden">
           <summary className="min-h-[44px] cursor-pointer list-none rounded-full border border-[var(--border-strong)] bg-[var(--card)] px-4 py-2.5 text-sm font-medium text-[var(--foreground)] shadow-[var(--shadow-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)]">
             메뉴
           </summary>

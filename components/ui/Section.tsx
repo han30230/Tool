@@ -30,7 +30,7 @@ export function Section({
           />
           <h2
             {...(headingId ? { id: headingId } : {})}
-            className="text-xl font-bold tracking-tight text-[var(--foreground)] sm:text-2xl"
+            className="text-xl font-extrabold tracking-tight text-[var(--foreground)] sm:text-2xl"
           >
             {title}
           </h2>

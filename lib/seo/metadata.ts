@@ -14,11 +14,21 @@ export function buildRootMetadata(): Metadata {
       template: `%s | ${siteName}`,
     },
     description:
-      "부가세·퍼센트·할인·마진·연봉 환산·날짜·평·㎡, 글자 수·줄바꿈 정리·JSON 포맷까지. 브라우저에서 바로 쓰는 무료 도구 모음. 회원가입 없이 모바일에서 동작합니다.",
+      "부가세·급여·실수령액·대출·BMI·D-day·비밀번호·Base64까지—무료 온라인 계산기·유틸 모음. 회원가입 없이 브라우저에서만 동작하고, 입력값은 서버에 저장하지 않습니다. 모바일에 맞춘 빠른 UI.",
     openGraph: {
       type: "website",
       locale: "ko_KR",
       siteName,
+      title: `${defaultTitle} | ${siteName}`,
+      description:
+        "숫자·텍스트·인코딩 도구를 한곳에. 설치 없이 바로 실행, 로그인 불필요.",
+      url: base,
+    },
+    twitter: {
+      card: "summary",
+      title: `${defaultTitle} | ${siteName}`,
+      description:
+        "부가세·급여·대출·텍스트 도구까지. 브라우저에서 무료로.",
     },
     robots: {
       index: true,

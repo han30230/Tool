@@ -35,8 +35,16 @@ export default function RootLayout({
             strategy="lazyOnload"
           />
         ) : null}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-[var(--foreground)] focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-[var(--background)] focus:shadow-[var(--shadow-lg)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
+        >
+          본문으로 건너뛰기
+        </a>
         <Header />
-        <main className="flex min-h-0 min-w-0 flex-1 flex-col">{children}</main>
+        <main id="main-content" className="flex min-h-0 min-w-0 flex-1 flex-col" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

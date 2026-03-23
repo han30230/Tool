@@ -1,4 +1,4 @@
-export type CategoryId = "calculator" | "convert" | "text";
+export type CategoryId = "calculator" | "convert" | "text" | "utility";
 
 export type FaqItem = {
   question: string;

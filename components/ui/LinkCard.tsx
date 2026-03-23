@@ -21,10 +21,14 @@ export function LinkCard({
   return (
     <Link
       href={href}
-      className={`group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-[var(--shadow-sm)] transition duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)]/25 hover:shadow-[var(--shadow-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)] sm:p-6 ${className}`}
+      className={`group relative block h-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-[var(--shadow-sm)] ring-1 ring-transparent transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[var(--shadow-lg)] hover:ring-[var(--accent)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)] sm:p-6 ${className}`}
     >
       <span
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/35 to-transparent opacity-0 transition group-hover:opacity-100"
+        className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-[var(--accent)]/10 to-cyan-500/5 opacity-0 blur-2xl transition duration-500 group-hover:opacity-100"
+        aria-hidden
+      />
+      <span
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent opacity-0 transition group-hover:opacity-100"
         aria-hidden
       />
       <span className={`relative block font-semibold tracking-tight text-[var(--foreground)] ${titleClassName}`}>
