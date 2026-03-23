@@ -1,6 +1,10 @@
 import type { CategoryId, ResolvedTool, ToolDefinition } from "./types";
 import { resolveTool } from "./resolve";
 import { additionalTools } from "./registry-batch2";
+import { batch3Tools } from "./registry-batch3";
+import { phase1Tools } from "./registry-phase1";
+import { phase2Tools } from "./registry-phase2";
+import { phase3Tools } from "./registry-phase3";
 
 export const categories: Record<
   CategoryId,
@@ -27,8 +31,20 @@ export const categories: Record<
   utility: {
     title: "유틸리티",
     description:
-      "비밀번호 생성·난수 추첨처럼 브라우저에서 바로 쓰는 보조 도구입니다. 입력값은 서버에 보내지 않습니다.",
+      "비밀번호·난수·동전 던지기·목록 추첨처럼 가볍게 쓰는 도구입니다. 입력값은 서버에 보내지 않습니다.",
     path: "/c/utility",
+  },
+  life: {
+    title: "생활",
+    description:
+      "팁·N빵·물·러닝 페이스·연비·세계 시계처럼 일상·여행·운동에서 바로 쓰는 참고용 도구입니다.",
+    path: "/c/life",
+  },
+  dev: {
+    title: "개발",
+    description:
+      "Unix 시간·UUID·색상·정규식·진법처럼 개발·디자인 작업에 붙이기 좋은 도구입니다.",
+    path: "/c/dev",
   },
 };
 
@@ -1199,6 +1215,10 @@ const toolList: ToolDefinition[] = [
     ],
   },
   ...additionalTools,
+  ...batch3Tools,
+  ...phase1Tools,
+  ...phase2Tools,
+  ...phase3Tools,
 ];
 
 export const tools: ResolvedTool[] = toolList.map(resolveTool);

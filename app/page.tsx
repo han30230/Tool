@@ -15,9 +15,13 @@ const popular = [
   "percent",
   "take-home-pay",
   "loan",
-  "bmi",
-  "password-generator",
-  "salary",
+  "markdown-preview",
+  "exchange-rate",
+  "qr-code-generator",
+  "hash-generator",
+  "unix-timestamp",
+  "slugify",
+  "todo-checklist",
   "date",
   "char-count",
   "base64",
@@ -28,10 +32,13 @@ const categoryAccent: Record<string, string> = {
   convert: "📐",
   text: "📝",
   utility: "⚡",
+  life: "☕",
+  dev: "💻",
 };
 
 export default function HomePage() {
   const featured = tools.filter((t) => popular.includes(t.slug));
+  const newTools = tools.filter((t) => t.isNew).slice(0, 12);
   const toolCount = tools.length;
   const categoryCount = Object.keys(categories).length;
 
@@ -127,7 +134,7 @@ export default function HomePage() {
         description="원하는 유형만 골라 들어가면 비슷한 도구를 한꺼번에 볼 수 있습니다."
         className="mt-14"
       >
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {Object.entries(categories).map(([id, c]) => (
             <li key={id}>
               <LinkCard
@@ -151,7 +158,7 @@ export default function HomePage() {
 
       <Section
         id="popular"
-        title="처음 써 보기 좋은 도구"
+        title="바로 써 보기 좋은 도구"
         description="자주 찾는 기능부터 모아 두었습니다. 각 페이지에 사용법·기준·FAQ가 있습니다."
         className="mt-16"
       >
@@ -168,6 +175,33 @@ export default function HomePage() {
           ))}
         </ul>
       </Section>
+
+      {newTools.length > 0 ? (
+        <Section
+          id="new-tools"
+          title="새로 추가된 도구"
+          description="최근에 올린 페이지입니다. 같은 카테고리·관련 도구로 이어서 쓰기 좋습니다."
+          className="mt-16"
+        >
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {newTools.map((t) => (
+              <li key={t.slug}>
+                <LinkCard
+                  href={`/tools/${t.slug}`}
+                  title={t.title}
+                  description={t.description}
+                  titleClassName="text-base"
+                  footer={
+                    <span className="text-[0.7rem] font-semibold uppercase tracking-wide text-[var(--accent)]">
+                      New
+                    </span>
+                  }
+                />
+              </li>
+            ))}
+          </ul>
+        </Section>
+      ) : null}
 
       <div className="mt-14">
         <AdSlot variant="inline" />

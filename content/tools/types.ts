@@ -1,4 +1,4 @@
-export type CategoryId = "calculator" | "convert" | "text" | "utility";
+export type CategoryId = "calculator" | "convert" | "text" | "utility" | "life" | "dev";
 
 export type FaqItem = {
   question: string;
@@ -40,6 +40,10 @@ export type ToolDefinition = {
   relatedIntro?: string;
   /** 본문 도구 안내(H2/H3). 없으면 기본 ‘사용 방법’ 접기만 표시 */
   toolSections?: ToolSection[];
+  /** 홈·목록에서 대표 노출(선택) */
+  featured?: boolean;
+  /** 신규 툴 배지(선택) */
+  isNew?: boolean;
 };
 
 /** UI·SEO용으로 기본값이 채워진 툴 */
@@ -47,4 +51,6 @@ export type ResolvedTool = ToolDefinition & {
   keywords: string[];
   introText: string;
   toolSections: ToolSection[];
+  featured: boolean;
+  isNew: boolean;
 };
