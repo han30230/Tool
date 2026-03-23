@@ -1,0 +1,117 @@
+/* Pretendard: 가변·동적 서브셋 — @import는 tailwind보다 먼저 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+@import "tailwindcss";
+
+:root {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+
+  --background: #f4f4f6;
+  --foreground: #0c0c0f;
+  --muted: #64748b;
+  --muted-foreground: #475569;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.12);
+  --card: #ffffff;
+  --card-inner: #fafbfc;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-muted: #818cf8;
+  --accent-subtle: rgba(79, 70, 229, 0.08);
+  --ring-offset: #f4f4f6;
+  --header-bg: rgba(255, 255, 255, 0.72);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 16px -4px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 40px -12px rgba(15, 23, 42, 0.12), 0 4px 12px -4px rgba(15, 23, 42, 0.06);
+  --shadow-glow: 0 0 0 1px rgba(79, 70, 229, 0.06), 0 8px 32px -8px rgba(79, 70, 229, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #09090b;
+    --foreground: #fafafa;
+    --muted: #94a3b8;
+    --muted-foreground: #cbd5e1;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.12);
+    --card: #18181b;
+    --card-inner: #27272a;
+    --accent: #818cf8;
+    --accent-hover: #a5b4fc;
+    --accent-muted: #6366f1;
+    --accent-subtle: rgba(129, 140, 248, 0.12);
+    --ring-offset: #09090b;
+    --header-bg: rgba(9, 9, 11, 0.75);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 20px -4px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 16px 48px -12px rgba(0, 0, 0, 0.55);
+    --shadow-glow: 0 0 0 1px rgba(129, 140, 248, 0.12), 0 8px 40px -8px rgba(79, 70, 229, 0.25);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--foreground);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    font-feature-settings: "ss01" on, "kern" on;
+  }
+
+  ::selection {
+    background: rgba(79, 70, 229, 0.18);
+    color: var(--foreground);
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+}
+
+/* 페이지 배경: 은은한 메시 그라데이션 */
+.app-bg {
+  background-color: var(--background);
+  background-image: radial-gradient(
+      ellipse 140% 90% at 50% -35%,
+      rgba(79, 70, 229, 0.14),
+      transparent 55%
+    ),
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(6, 182, 212, 0.07), transparent 50%),
+    radial-gradient(ellipse 55% 45% at 0% 100%, rgba(139, 92, 246, 0.06), transparent 50%);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-bg {
+    background-image: radial-gradient(
+        ellipse 140% 90% at 50% -35%,
+        rgba(99, 102, 241, 0.22),
+        transparent 55%
+      ),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(6, 182, 212, 0.08), transparent 50%),
+      radial-gradient(ellipse 55% 45% at 0% 100%, rgba(139, 92, 246, 0.1), transparent 50%);
+  }
+}
+
+@layer utilities {
+  .focus-ring-safe:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .card-elevated {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    border-radius: 1rem;
+  }
+
+  .text-balance-safe {
+    text-wrap: balance;
+  }
+}
